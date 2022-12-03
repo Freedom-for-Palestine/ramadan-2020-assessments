@@ -6,6 +6,8 @@ module.exports = {
     return newRequest.save();
   },
 
+  // todoing: get data
+  //! top :: means how many videos data you want
   getAllVideoRequests: (top) => {
     return VideoRequest.find({}).sort({ submit_date: '-1' }).limit(top);
   },

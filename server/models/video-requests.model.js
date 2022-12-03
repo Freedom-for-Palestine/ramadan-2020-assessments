@@ -2,6 +2,8 @@ var mongoose = require('./mongo.config');
 
 if (!Object.keys(mongoose).length) return;
 
+
+// schema => data in document and validation on it
 var VideoRequestsSchema = mongoose.Schema(
   {
     author_name: String,

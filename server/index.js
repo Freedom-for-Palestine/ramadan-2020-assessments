@@ -6,6 +6,7 @@ const VideoRequestData = require('./data/video-requests.data');
 const UserData = require('./data/user.data');
 const cors = require('cors');
 const mongoose = require('./models/mongo.config');
+const { json } = require('body-parser');
 
 if (!Object.keys(mongoose).length) return;
 
@@ -13,22 +14,29 @@ app.use(cors());
 
 app.use(bodyParser.urlencoded({ extended: true }));
 
+// json parser 
+app.use(express.json());
+
 app.get('/', (req, res) =>
   res.send('Welcome to semicolon academy APIs, use /video-request to get data')
 );
 
+// ! first task  done
 app.post('/video-request', async (req, res, next) => {
+  //! create (videoRequest)document in videoRequests Collection
   const response = await VideoRequestData.createRequest(req.body);
   res.send(response);
   next();
 });
 
+// todoing:: videos data 
 app.get('/video-request', async (req, res, next) => {
   const data = await VideoRequestData.getAllVideoRequests();
   res.send(data);
   next();
 });
 
+// todo::all users
 app.get('/users', async (req, res, next) => {
   const response = await UserData.getAllUsers(req.body);
   res.send(response);
