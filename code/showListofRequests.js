@@ -1,6 +1,10 @@
 import addRequestElementToTheDom from "./addRequestElementToTheDom.js";
 //! get a list of requests
 const ShowListOfRequests = function (top) {
+  //! default value for top
+  // if (typeof(top) == "undefined") top = 3;
+  if (isNaN(top)) top = 3;
+
   const xhr = new XMLHttpRequest();
   // open request
   xhr.open("GET", `http://localhost:7777/video-request/${top}`, true);

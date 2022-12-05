@@ -9,6 +9,6 @@ import constants from "./constants.js";
   constants.submit.addEventListener("click", submit_func);
 
   // show list of requests after loading the page
-  let top = 5; // how many requests to show for client
-  ShowListOfRequests(top);
+  let limit = 3; // how many requests to show for client
+  ShowListOfRequests(limit);
 // });
