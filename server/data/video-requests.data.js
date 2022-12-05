@@ -1,4 +1,4 @@
-var VideoRequest = require('./../models/video-requests.model');
+var VideoRequest = require("./../models/video-requests.model");
 
 module.exports = {
   createRequest: (vidRequestData) => {
@@ -9,12 +9,12 @@ module.exports = {
   // todoing: get data
   //! top :: means how many videos data you want
   getAllVideoRequests: (top) => {
-    return VideoRequest.find({}).sort({ submit_date: '-1' }).limit(top);
+    return VideoRequest.find({}).sort({ submit_date: "-1" }).limit(Number(top));
   },
 
   searchRequests: (topic) => {
     return VideoRequest.find({ topic_title: topic })
-      .sort({ addedAt: '-1' })
+      .sort({ addedAt: "-1" })
       .limit(top);
   },
 
@@ -36,7 +36,7 @@ module.exports = {
 
   updateVoteForRequest: async (id, vote_type) => {
     const oldRequest = await VideoRequest.findById({ _id: id });
-    const other_type = vote_type === 'ups' ? 'downs' : 'ups';
+    const other_type = vote_type === "ups" ? "downs" : "ups";
     return VideoRequest.findByIdAndUpdate(
       { _id: id },
       {
