@@ -7,7 +7,8 @@ const constants = {
   topic_details: document.getElementsByName("topic_details")[0],
   expected_result: document.getElementsByName("expected_result")[0],
   target_level: document.getElementsByName("target_level")[0],
-  submit :document.querySelector("button")
+  submit: document.querySelector("button"),
+  requestsList: document.getElementById("listOfRequests"),
 };
 
 export default constants;

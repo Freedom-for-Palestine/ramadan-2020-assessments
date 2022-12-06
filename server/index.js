@@ -21,7 +21,7 @@ app.get("/", (req, res) =>
   res.send("Welcome to semicolon academy APIs, use /video-request to get data")
 );
 
-// ! first task  done
+///// ! first task  done
 app.post("/video-request", async (req, res, next) => {
   //! create (videoRequest)document in videoRequests Collection
   const response = await VideoRequestData.createRequest(req.body);
@@ -37,7 +37,7 @@ app.get("/video-request/:top", async (req, res, next) => {
   next();
 });
 
-//! it crashed => cause it's looks like the one before it  same url
+///////! it crashed => cause it's looks like the one before it  same url
 app.get("/video-request/id/:id", async (req, res, next) => {
   const data = await VideoRequestData.getRequestById(req.params.id);
   res.send(data);
@@ -61,7 +61,7 @@ app.post("/users/login", async (req, res, next) => {
 
 app.use(express.json());
 
-// ! here to get see video
+/////// ! here to get see video
 app.put("/video-request/vote", async (req, res, next) => {
   const { id, vote_type } = req.body;
   const response = await VideoRequestData.updateVoteForRequest(id, vote_type);
@@ -69,6 +69,7 @@ app.put("/video-request/vote", async (req, res, next) => {
   next();
 });
 
+// !!!!! not yet 
 app.put("/video-request", async (req, res, next) => {
   const { id, status, resVideo } = req.body;
 

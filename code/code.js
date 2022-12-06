@@ -1,16 +1,15 @@
-// const { json } = require("body-parser");
-
 import submit_func from "./submit.js";
 import ShowListOfRequests from "./ShowListOfRequests.js";
 import constants from "./constants.js";
-
+import voteUpDowns from "./voteUpsDowns.js";
 // window.addEventListener("load", () => {
 //! submit listener
 constants.submit.addEventListener("click", submit_func);
 
 // show list of requests after loading the page
-let limit = 3; // how many requests to show for client
-ShowListOfRequests(limit);
+let limit = 20; // how many requests to show for client
+// !!!!TODO ::::: something to change this typeOfSorting
+ShowListOfRequests(limit,'byVote');
 // -------------------------------------------------------------------------------------------
 // * vote task
 //! get all users data first
@@ -64,98 +63,9 @@ const getUserData = () => {
   return userData;
 };
 
-// !ToDo : this fucking task
-// * taaaaaaaaaaaaaaaaaaaaaaask heeeeeeeeeeeeeeeer
-// ! up and down
-const requestsList = document.getElementById("listOfRequests");
-requestsList.addEventListener("click", async (e) => {
-  if (
-    e.target.tagName.toLowerCase() === "a" &&
-    (e.target.classList.contains("voteUp") ||
-      e.target.classList.contains("voteDown"))
-  ) {
-    e.preventDefault();
-    //! then i'll see what i gonna do with this links
-    const videoRequestId = e.target.parentNode.parentNode.parentNode.id;
-    let voteType = "";
-    if (e.target.classList.contains("voteUp")) {
-      voteType = "ups";
-    } else {
-      voteType = "downs";
-    }
-    // * test
-    //!!!! maybe i could create a handle to help me creating ajax call without create it from scratch every time
-    const d = { id: videoRequestId, vote_type: voteType };
-    await func(d);
-
-    //!!!! another xhr one for get updated data
-    // or reload page by async (ajax)
-    // const res = await another(d);
-    // console.log(JSON.parse(res));
-    // const votes = JSON.parse(res).votes;
-    // console.log(votes);
-    // e.target.parentNode.children[1].innerText = votes.ups - votes.downs;
-    // document.getElementById("listOfRequests").textContent = "";
-    // ShowListOfRequests();
-    //  await requestByID(videoRequestId);
-    const one = JSON.parse(await requestByID(videoRequestId));
-    e.target.parentNode.children[1].innerText = one.votes.ups - one.votes.downs;
-    console.log(one)
-  }
-});
+// ! Votes ups and downs
+constants.requestsList.addEventListener("click", voteUpDowns);
 
 // });
-
-// to await this
-const func = async function (d) {
-  return new Promise(function (resolve, reject) {
-    const xhr = new XMLHttpRequest();
-    xhr.open("PUT", "http://localhost:7777/video-request/vote", true);
-
-    xhr.setRequestHeader("content-type", "application/json");
-
-    // ! onload
-    xhr.onload = function () {
-      if (this.status >= 200 && this.status < 300) {
-        resolve(xhr.response); ///!!!! return what comes from the server 1
-      } else {
-        reject({
-          status: this.status,
-          statusText: xhr.statusText,
-        });
-      }
-    };
-    // ! onerror
-    xhr.onerror = function () {
-      reject({
-        status: this.status,
-        statusText: xhr.statusText,
-      });
-    };
-
-    // initialize request
-    xhr.send(JSON.stringify(d));
-  });
-};
-
-//! xhr for one request
-const requestByID = async (id) => {
-  return new Promise((resolve,reject) => {
-    const xhr = new XMLHttpRequest();
-    xhr.open("GET", `http://localhost:7777/video-request/id/${id}`);
-    xhr.setRequestHeader("content-type", "application/json");
-    xhr.onload = () => {
-      if (xhr.status >= 200 && xhr.status < 300) {
-
-
-        resolve(xhr.responseText); ///!!!! return what comes from the server 1
-      } else {
-        reject({
-          status: xhr.status,
-          statusText: xhr.statusText,
-        });
-      }
-    };
-    xhr.send("");
-  });
-};
+// !Task
+// !ToDo : sorting (NEW) => (sort NEW by votes)

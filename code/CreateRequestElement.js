@@ -29,6 +29,8 @@ const CreateRequestElement = function (content) {
               <span class="text-info">${content.status.toUpperCase()}</span>
               &bullet; added by <strong>${content.author_name}</strong> on
               <strong>${new Date(content.submit_date).toDateString()}</strong>
+              
+
             </div>
             <div
               class="d-flex justify-content-center flex-column 408ml-auto mr-2"
@@ -41,3 +43,4 @@ const CreateRequestElement = function (content) {
 };
 
 export default CreateRequestElement;
+//<strong>${new Date(content.update_date).getTime()}</strong>
