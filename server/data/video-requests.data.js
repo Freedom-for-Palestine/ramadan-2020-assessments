@@ -35,7 +35,7 @@ module.exports = {
   },
 
   updateVoteForRequest: async (id, vote_type) => {
-    const oldRequest = await VideoRequest.findById({ _id: id });
+    const oldRequest = await VideoRequest.findById({ _id: id }); // get video by id 
     const other_type = vote_type === "ups" ? "downs" : "ups";
     return VideoRequest.findByIdAndUpdate(
       { _id: id },

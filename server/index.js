@@ -32,19 +32,27 @@ app.post("/video-request", async (req, res, next) => {
 // todoing:: videos data
 // مجرد url
 app.get("/video-request/:top", async (req, res, next) => {
-  console.log(req.params.top);
   const data = await VideoRequestData.getAllVideoRequests(req.params.top);
   res.send(data);
   next();
 });
 
+//! it crashed => cause it's looks like the one before it  same url
+app.get("/video-request/id/:id", async (req, res, next) => {
+  const data = await VideoRequestData.getRequestById(req.params.id);
+  res.send(data);
+  next();
+});
+
 // todo::all users
+// see all users data to compare with one who's trying to vote
 app.get("/users", async (req, res, next) => {
   const response = await UserData.getAllUsers(req.body);
   res.send(response);
   next();
 });
 
+// check if user exists and login or if not will create a new one
 app.post("/users/login", async (req, res, next) => {
   const response = await UserData.createUser(req.body);
   res.redirect(`http://localhost:5500?id=${response._id}`);
@@ -53,6 +61,7 @@ app.post("/users/login", async (req, res, next) => {
 
 app.use(express.json());
 
+// ! here to get see video
 app.put("/video-request/vote", async (req, res, next) => {
   const { id, vote_type } = req.body;
   const response = await VideoRequestData.updateVoteForRequest(id, vote_type);

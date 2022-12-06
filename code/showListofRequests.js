@@ -10,9 +10,7 @@ const ShowListOfRequests = function (top) {
   xhr.open("GET", `http://localhost:7777/video-request/${top}`, true);
   // set header to tell server what i'm going to send or the type of object text - html - json
   xhr.setRequestHeader("Content-type", "application/json ; charset=utf-8");
-  // initialize request or start
-  xhr.send("");
-
+  // when payload is here
   xhr.onload = function () {
     if (xhr.status === 200) {
       // data
@@ -24,6 +22,9 @@ const ShowListOfRequests = function (top) {
       });
     }
   };
+
+  // initialize request or start
+  xhr.send("");
 };
 
 export default ShowListOfRequests;
